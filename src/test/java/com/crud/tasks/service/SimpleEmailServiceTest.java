@@ -20,9 +20,9 @@ public class SimpleEmailServiceTest {
     @Mock
     private JavaMailSender javaMailSender;
     @Test
-    public void shouldSendEmial () {
+    public void shouldSendEmail () {
         //Given
-        Mail mail = new Mail ("lukasz.lizewski@gmail.com", "Test", "Test");
+        Mail mail = new Mail ("lukasz.lizewski@gmail.com", null, "Test", "Test");
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
