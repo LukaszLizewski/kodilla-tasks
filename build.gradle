@@ -29,16 +29,13 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.projectlombok:lombok')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-//	compile('mysql:mysql-connector-java')
-	compile('org.postgresql:postgresql')
+	compile('mysql:mysql-connector-java')
+//	compile('org.postgresql:postgresql')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	//runtime('com.oracle:ojdbc7:12.1.0.2.0')
 	compile('io.springfox:springfox-swagger2:2.7.0')
 	compile('io.springfox:springfox-swagger-ui:2.7.0')
 	compile('org.springframework.boot:spring-boot-starter-mail:2.3.5.RELEASE')
-
-
-
 
 //	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 }
