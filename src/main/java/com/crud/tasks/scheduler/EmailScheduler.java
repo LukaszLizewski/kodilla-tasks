@@ -17,17 +17,10 @@ public class EmailScheduler {
     @Autowired
     private AdminConfig adminConfig;
     private static final String SUBJECT = "Tasks: Once a day emial";
-    @Scheduled (cron = "0 0 10 * * *")
+    @Scheduled (fixedDelay = 1000000)/*(cron = "0 0 10 * * *")*/
     public void sendInformationEmail() {
-        String singleTask = " task!";
-        String pluralTask = " tasks!";
-        String wordTask;
         long size = taskRepository.count();
-        if (size==1) {
-            wordTask=singleTask;
-        } else {
-            wordTask=pluralTask;
-        }
+        String wordTask = (size!=1) ? " tasks.":" task.";
         simpleEmailService.send(new Mail(
                 adminConfig.getAdminMail(),
                 null,
