@@ -76,7 +76,6 @@ public class TaskControllerTest {
                 .param("taskId","123")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
-
     }
     @Test
     public void shouldCreateAndGetTask () throws Exception {
