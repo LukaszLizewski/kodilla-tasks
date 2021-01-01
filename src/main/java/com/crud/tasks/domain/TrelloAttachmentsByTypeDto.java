@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrelloAttachmentsByTypeDto {
     @JsonProperty("board")
