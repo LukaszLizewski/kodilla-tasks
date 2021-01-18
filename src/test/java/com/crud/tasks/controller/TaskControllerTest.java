@@ -2,10 +2,12 @@ package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.service.DbService;
 import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,7 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.hamcrest.Matchers.hasSize;
@@ -76,6 +79,7 @@ public class TaskControllerTest {
                 .param("taskId","123")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
+        verify(taskController,times(1)).deleteTask(anyLong());
     }
     @Test
     public void shouldCreateAndGetTask () throws Exception {
@@ -100,6 +104,8 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.id",is(123)))
                 .andExpect(jsonPath("$.title",is("test_title1")))
                 .andExpect(jsonPath("$.content",is("test_content1")));
+        verify(taskController,times(1)).getTask(anyLong());
+
     }
     @Test
     public void shouldUpdateTask () throws Exception {
