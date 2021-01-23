@@ -16,8 +16,10 @@ public class EmailScheduler {
     private TaskRepository taskRepository;
     @Autowired
     private AdminConfig adminConfig;
+
     private static final String SUBJECT = "Tasks: Once a day emial";
-    @Scheduled (fixedDelay = 1000000)/*(cron = "0 0 10 * * *")*/
+
+    @Scheduled (fixedDelay = 1000000) /*(cron = "0 0 10 * * *")*/
     public void sendInformationEmail() {
         long size = taskRepository.count();
         String wordTask = (size!=1) ? " tasks.":" task.";
