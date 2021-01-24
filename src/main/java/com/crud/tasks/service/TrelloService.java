@@ -22,6 +22,7 @@ public class TrelloService {
     private SimpleEmailService emailService;
     @Autowired
     private AdminConfig adminConfig;
+
     public List<TrelloBoardDto> fetchTrelloBoards(){
         return trelloClient.getTrelloBoards();
     }

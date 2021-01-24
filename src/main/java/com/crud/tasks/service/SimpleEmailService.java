@@ -11,6 +11,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class SimpleEmailService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleMailMessage.class);
@@ -18,6 +20,7 @@ public class SimpleEmailService {
     private JavaMailSender javaMailSender;
     @Autowired
     private MailCreatorService mailCreatorService;
+
 
     public void send (final Mail mail){
         LOGGER.info("Starting email preparation.");
@@ -28,13 +31,21 @@ public class SimpleEmailService {
             LOGGER.error("Field to process email sending", e.getMessage(),e);
         }
     }
-
     private MimeMessagePreparator createMimeMessage(final Mail mail) {
-        return mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setTo(mail.getMailTo());
-            messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
-        };
+        if (mail.getSubject().contains("Tasks: New Trello Card")){
+            return mimeMessage -> {
+                MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+                messageHelper.setTo(mail.getMailTo());
+                messageHelper.setSubject(mail.getSubject());
+                messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            };
+        } else {
+            return mimeMessage -> {
+                MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+                messageHelper.setTo(mail.getMailTo());
+                messageHelper.setSubject(mail.getSubject());
+                messageHelper.setText(mailCreatorService.buildSchedulerEmail(mail.getMessage()), true);
+            };
+        }
     }
 }
