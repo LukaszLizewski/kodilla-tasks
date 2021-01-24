@@ -114,9 +114,7 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            List of tasks:
-                                        </p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;" th:text="${tasks_list_text}"></p>
                                         <ul th:each="listOfTask : ${tasks_list}">
                                             <li th:text="${listOfTask}"></li>
                                         </ul>

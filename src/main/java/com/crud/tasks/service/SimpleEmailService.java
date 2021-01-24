@@ -11,7 +11,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 
 @Service
 public class SimpleEmailService {
@@ -32,20 +31,18 @@ public class SimpleEmailService {
         }
     }
     private MimeMessagePreparator createMimeMessage(final Mail mail) {
-        if (mail.getSubject().contains("Tasks: New Trello Card")){
-            return mimeMessage -> {
-                MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            if (mail.getSubject().contains("Tasks: New Trello Card")) {
                 messageHelper.setTo(mail.getMailTo());
                 messageHelper.setSubject(mail.getSubject());
                 messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
-            };
-        } else {
-            return mimeMessage -> {
-                MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            } else {
                 messageHelper.setTo(mail.getMailTo());
                 messageHelper.setSubject(mail.getSubject());
                 messageHelper.setText(mailCreatorService.buildSchedulerEmail(mail.getMessage()), true);
-            };
-        }
+            }
+        };
     }
 }

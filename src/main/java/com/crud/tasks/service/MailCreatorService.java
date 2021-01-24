@@ -54,10 +54,25 @@ public class MailCreatorService {
         context.setVariable("task_url", "http://localhost:8888/tasks_frontend/");
         context.setVariable("button", "Show list of tasks");
         context.setVariable("company_name", adminConfig.getCompanyName());
-        context.setVariable("show_button", true);
+        context.setVariable("show_button", showButton(listOfTasks));
         context.setVariable("is_friend", false);
         context.setVariable("admin_object", adminConfig);
         context.setVariable("tasks_list", listOfTasks);
+        context.setVariable("tasks_list_text", taskListText(listOfTasks));
         return templateEngine.process("mail/scheduled-mail", context);
+    }
+    private String taskListText(List<String> list) {
+        String result = "List of tasks:";
+        if (list.size()==0){
+            result = "Excellent! You haven't got any tasks!";
+        }
+        return result;
+    }
+    private boolean showButton (List<String> list) {
+        boolean result = true;
+        if (list.size()==0){
+            result = false;
+        }
+        return result;
     }
 }
